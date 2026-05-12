@@ -1,0 +1,24 @@
+# Cline / editor state
+.clinerules/workflows/**/.DS_Store
+.cline/
+
+# Brainstorm visual-companion scratch output (created at runtime)
+.superpowers/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node (visual-companion server has no deps, but just in case)
+node_modules/
+
+# Worktrees / journals used during development
+.worktrees/
+.private-journal/
+
+# Claude Code / other-harness artifacts (this is a Cline port — keep these out)
+.claude/
+CLAUDE.md
+GEMINI.md
