@@ -28,6 +28,7 @@ For each task:
 2. Follow each step exactly (plan has bite-sized steps)
 3. Run verifications as specified
 4. Mark as completed
+5. **Context-budget check (every task, before starting the next).** This workflow holds the plan + the codebase you've touched + the conversation all in one context — it does not survive a large job. Check Cline's context usage. If it's getting high (rule of thumb: past ~60% of your window, or anywhere near where the model degrades), **stop — do not start another task.** Switch to `/long-haul-development.md`: write `.cline/plan.md` (this plan, with completed tasks checked off) and `.cline/journal.md` (what's done, which files matter and why, gotchas, what's next), then `/newtask` to continue from there. Pushing through a full context window costs you more than the switch does.
 
 ### Step 3: Complete Development
 

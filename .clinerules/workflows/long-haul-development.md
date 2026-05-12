@@ -22,13 +22,21 @@ Both are plain markdown. `.cline/` should be git-ignored — add it to `.gitigno
 
 Cline may auto-condense the conversation as it fills — treat that as a bonus, not your safety net. The journal is your safety net.
 
-## Step 0 — Starting or resuming?
+## Step 0 — Starting, resuming, or stale state?
 
-**Resuming** (`.cline/plan.md` exists): Read `.cline/plan.md` and `.cline/journal.md` *first, before anything else*. Find the first unchecked task — that's your task. **Do not re-read the whole codebase**; the journal tells you which files matter. Go to "The per-task loop".
+First, check whether `.cline/plan.md` exists.
 
-**Starting** (no `.cline/plan.md`):
+**No `.cline/plan.md`** → you're **starting** (jump to "Starting" below).
+
+**`.cline/plan.md` exists** → read the goal line at the top of `.cline/plan.md` (and `.cline/journal.md` if needed). Does it match the work you've just been asked to do?
+- **Matches** → you're **resuming.** Read `.cline/plan.md` and `.cline/journal.md` *first, before anything else*. Find the first unchecked task — that's your task. **Do not re-read the whole codebase**; the journal tells you which files matter. Go to "The per-task loop".
+- **Doesn't match (or you can't tell)** → this is probably leftover state from a previous job. **Do not silently overwrite it and do not silently resume the wrong job.** Ask the user:
+  > "There's existing `.cline/` state for: *<old goal from plan.md>* — `<N>` of `<M>` tasks done. Resume that, or start a new job? If new, I'll move the old files to `.cline/archive/<timestamp>/` so they're not lost."
+  Wait for the answer. If they say resume → treat as Resuming above. If they say new job → `mkdir -p .cline/archive/<timestamp>/`, move the existing `.cline/plan.md` and `.cline/journal.md` (and any other loose files in `.cline/`) into it, then proceed to "Starting". Only archive after they've confirmed.
+
+**Starting** (clean `.cline/`, no plan):
 1. If you don't already have an implementation plan, run `/writing-plans.md` to produce one. Tasks must be small — see "Sizing tasks" below.
-2. Save the plan to `.cline/plan.md` as a checkbox list.
+2. Save the plan to `.cline/plan.md` as a checkbox list, with the goal on the first line (e.g. `# Plan: <goal>`) so a future session can tell what this state belongs to.
 3. Create `.cline/journal.md` with: the goal (1–2 sentences), the starting state, and any context the work depends on.
 4. Begin Task 1.
 
