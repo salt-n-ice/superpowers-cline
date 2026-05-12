@@ -11,7 +11,7 @@ Same skills, same behavior-shaping content, repackaged using Cline's native prim
 | `skills/<name>/SKILL.md` + supporting files | `.clinerules/workflows/<name>.md` + `.clinerules/workflows/<name>/…` |
 | Claude Code tool names (`Skill`, `Task`, `TodoWrite`, `EnterPlanMode`) | Mapped in [`.clinerules/cline-tools.md`](.clinerules/cline-tools.md) (workflows → `/name.md`, subagents → `/newtask`, todos → Cline's todo list, plan → Plan/Act mode) |
 
-The skill *content* is the upstream content, edited only where a Claude-Code mechanic had to become a Cline one. Two skills that lean on Claude Code's *parallel* subagents — `dispatching-parallel-agents` and `subagent-driven-development` — carry a short "⚠ Cline adaptation" note: Cline's `/newtask` gives you context-isolated subtasks but runs them sequentially, so you keep the discipline (isolate each unit, review between them) and drop the concurrency.
+The skill *content* is the upstream content, edited only where a Claude-Code mechanic had to become a Cline one. Two upstream skills are built on Claude Code's *parallel* subagents, which Cline doesn't have — `subagent-driven-development` and `dispatching-parallel-agents` are therefore **redirect stubs** that point at `long-haul-development` (a Cline addition), which gets the parts that matter — one isolated context per unit of work, review gates, task-by-task execution — via a sequential `/newtask` relay plus disk-backed state.
 
 ## What's included
 
@@ -24,10 +24,10 @@ Workflows (`.clinerules/workflows/`), each invoked as `/<name>.md`:
 
 - `brainstorming` — turn an idea into a design before any creative work
 - `writing-plans` — turn a spec into a step-by-step implementation plan
-- `executing-plans` — execute a written plan with review checkpoints
-- `subagent-driven-development` — execute plan tasks via isolated Cline subtasks (⚠ sequential)
-- `long-haul-development` — **Cline addition.** Execute a large plan that won't fit in one context window: disk-backed plan + journal, relayed across `/newtask` tasks, no subagents needed. See [below](#long-haul-development).
-- `dispatching-parallel-agents` — split independent work across isolated subtasks (⚠ sequential)
+- `long-haul-development` — **Cline addition; the plan-execution workflow for Cline.** Execute an implementation plan task-by-task with review gates: disk-backed plan + journal, relayed across `/newtask` tasks so a large job stays under the context budget. See [below](#long-haul-development).
+- `executing-plans` — execute a written plan inline in one session (use only for a plan small enough to finish without filling the window)
+- `subagent-driven-development` — redirect → `long-haul-development` (Cline has no subagents)
+- `dispatching-parallel-agents` — redirect → `long-haul-development` (Cline has no parallel agents)
 - `test-driven-development` — RED-GREEN-REFACTOR discipline for any feature or fix
 - `systematic-debugging` — root-cause a bug before proposing fixes
 - `requesting-code-review` — get a fresh-context review of completed work
@@ -75,12 +75,12 @@ It's orthogonal to the other workflows — use it *alongside* `brainstorming` / 
 
 Also a Cline addition, for the case where the work is bigger than your context window — large codebase, multi-file refactor, or a small-context model that fills up fast. Instead of trying to hold the plan + the codebase + the progress in context (and hitting the wall mid-task), it treats **disk as memory**: a git-ignored `.cline/plan.md` (checkbox task list, source of truth) and `.cline/journal.md` (append-only log of what's done, which files matter and why, gotchas, what's next). The agent does one bounded task, updates both files, checks its context budget, and when it's getting full it writes a tiny handoff and relays to a fresh task via `/newtask` — which reads the two files and continues. Repeat until done. It also enforces surgical reading (grep to the lines, don't slurp whole files), which is the single biggest context saver in a big repo.
 
-It's the no-subagent, context-bounded counterpart to `subagent-driven-development` — same isolation-per-task and review-gate benefits, achieved by relaying fresh tasks instead of dispatching subagents. Invoke `/long-haul-development.md` (it'll bootstrap a plan via `/writing-plans.md` if you don't have one). Requires Cline's `/newtask` to be available.
+It's the no-subagent, context-bounded counterpart to upstream's `subagent-driven-development` — same isolation-per-task and review-gate benefits, achieved by relaying fresh tasks instead of dispatching subagents — which is why `subagent-driven-development` and `dispatching-parallel-agents` are just redirect stubs here. Invoke `/long-haul-development.md` (it'll bootstrap a plan via `/writing-plans.md` if you don't have one). Requires Cline's `/newtask` to be available.
 
 ## Notes & limitations
 
 - **Cline hooks aren't used.** Superpowers' Claude Code build uses a SessionStart hook; Cline hooks are macOS/Linux-only, so this port uses an always-on `.clinerules` rule instead — works on every OS, no scripts.
-- **Subtasks are sequential.** See the `⚠ Cline adaptation` notes in `subagent-driven-development.md` and `dispatching-parallel-agents.md`.
+- **No subagents.** Cline's `/newtask` is a sequential baton pass, not a parent-and-worker. `subagent-driven-development` and `dispatching-parallel-agents` are redirect stubs → use `long-haul-development` (or, for a few independent fixes, just do them as sequential tasks).
 - **`brainstorming`'s visual companion** is a small Node HTTP server (`.clinerules/workflows/brainstorming/scripts/`). It needs Node on `PATH`; in Cline run it with `--foreground` as a background command.
 - **`writing-skills`** talks about authoring "skills" — in this repo that means authoring Cline workflows. The principles are unchanged.
 

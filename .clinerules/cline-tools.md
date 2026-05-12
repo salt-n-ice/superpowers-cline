@@ -23,7 +23,8 @@ The workflows in this library were ported from a Claude Code skill set. Where a 
 
 ## On subtasks vs. subagents
 
-Several workflows (`/dispatching-parallel-agents.md`, `/subagent-driven-development.md`, `/requesting-code-review.md`) were written for a harness with parallel, context-isolated subagents. Cline's `/newtask` gives you the **context isolation** (a fresh subtask with exactly the brief you write, returning a summary) but **not parallelism** — subtasks run one at a time. So:
+Cline has no subagents. `/newtask` gives you **context isolation** (a fresh task with exactly the brief you write) but it's a one-way baton pass — there's no parent that stays alive and collects results, and **no parallelism** (one task at a time).
 
-- Keep: one subtask per independent unit of work; hand it a self-contained brief; have it return a summary; review between units.
-- Drop: "all run concurrently", "time saved by parallelism". Do them in sequence.
+- `/subagent-driven-development.md` and `/dispatching-parallel-agents.md` (upstream skills built on parallel subagents) are **redirect stubs** here — both point at `/long-haul-development.md`, which gets the parts that matter (one isolated context per unit of work, review gates) via a sequential `/newtask` relay plus disk-backed state.
+- `/requesting-code-review.md` says "dispatch a code reviewer subagent" — in Cline, either do an explicit fresh-eyes self-review pass, or relay a review-only `/newtask`.
+- General rule: keep the discipline ("one isolated unit of work per subtask, self-contained brief, review between units"); drop the framing ("run concurrently", "time saved by parallelism").

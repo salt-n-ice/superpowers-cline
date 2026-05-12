@@ -11,7 +11,7 @@ Load plan, review critically, execute all tasks, report when complete.
 
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
-**Note:** This is the "execute in the current session, task-by-task" path. If you want each task isolated in its own fresh context with automatic review gates, use `/subagent-driven-development.md` instead — it drives the same plan through Cline subtasks (`/newtask`).
+**Note:** This is the "execute in the current session, task-by-task" path. If you want each task isolated in its own fresh context with automatic review gates, use `/long-haul-development.md` instead — it relays the plan across `/newtask` tasks and keeps state on disk so the whole job stays under your context budget.
 
 ## The Process
 

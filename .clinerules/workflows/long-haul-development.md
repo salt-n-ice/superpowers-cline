@@ -7,7 +7,7 @@ description: Use when the work is too large to finish within one context window 
 
 > **Announce at start:** "Using long-haul-development — disk-backed plan + journal, relaying across tasks to stay under the context budget."
 
-This is the no-subagent, context-bounded counterpart to `/subagent-driven-development.md`. Use it when the job is bigger than your context window — a large refactor across many files, a feature that touches a sprawling codebase, or any model with a small window (e.g. 200k, where you should stop well before the wall). The controller-with-workers pattern needs subagents you don't have; this workflow gets the same result a different way.
+Use it when the job is bigger than your context window — a large refactor across many files, a feature that touches a sprawling codebase, or any model with a small window (e.g. 200k, where you should stop well before the wall). The controller-with-workers pattern needs subagents you don't have; this workflow gets the same result a different way.
 
 ## The core idea
 
@@ -97,7 +97,7 @@ You're about to blow the budget or lose state when you think:
 - **`/test-driven-development.md`** — each code task follows it.
 - **`/verification-before-completion.md`** — before checking off each task, and over the whole change at the end.
 - **`/finishing-a-development-branch.md`** — once every task is checked off.
-- **`/subagent-driven-development.md`** — the sibling workflow for harnesses that *do* have subagents. If you ever run somewhere with parallel subagents, prefer that one; otherwise this is your path.
+- **`/subagent-driven-development.md`** / **`/dispatching-parallel-agents.md`** — upstream subagent-based skills; in Cline they are redirect stubs that point here. (Original versions at obra/superpowers if you ever run a subagent-capable harness.)
 
 ## When to Use / Not Use
 

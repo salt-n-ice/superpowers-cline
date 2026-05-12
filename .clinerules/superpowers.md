@@ -38,9 +38,9 @@ The available workflows (skills):
 - `/brainstorming.md` — turn an idea into a design before any creative work
 - `/writing-plans.md` — turn a spec into a step-by-step implementation plan
 - `/executing-plans.md` — execute a written plan with review checkpoints
-- `/subagent-driven-development.md` — execute plan tasks via isolated Cline subtasks
-- `/long-haul-development.md` — execute a large plan when it won't fit in one context window: disk-backed plan + journal, relayed across `/newtask` tasks, no subagents needed (Cline addition)
-- `/dispatching-parallel-agents.md` — split independent work across isolated subtasks
+- `/long-haul-development.md` — execute an implementation plan task-by-task with review gates; disk-backed plan + journal, relayed across `/newtask` tasks so a large job stays under the context budget. **This is the plan-execution workflow for Cline.** (Cline addition)
+- `/subagent-driven-development.md` — redirect → `/long-haul-development.md` (Cline has no subagents)
+- `/dispatching-parallel-agents.md` — redirect → `/long-haul-development.md` (Cline has no parallel agents)
 - `/test-driven-development.md` — RED-GREEN-REFACTOR discipline for any feature or fix
 - `/systematic-debugging.md` — root-cause a bug before proposing fixes
 - `/requesting-code-review.md` — get a fresh-context review of completed work
@@ -53,7 +53,7 @@ The available workflows (skills):
 
 When any workflow says "invoke the X skill", "use the X skill", or "REQUIRED SUB-SKILL: X", that means **run the `/X.md` workflow**. Workflow text sometimes uses Claude Code tool names (`Skill`, `Task`, `TodoWrite`); see `.clinerules/cline-tools.md` for Cline equivalents.
 
-**Executing a plan?** If the work plausibly won't fit in one context window (large codebase, many files, long refactor, small-context model), use `/long-haul-development.md` rather than `/executing-plans.md` or `/subagent-driven-development.md` — it externalizes state to disk and relays across `/newtask` tasks so quality holds across the whole job.
+**Executing a plan?** Use `/long-haul-development.md` — it's the Cline plan-execution workflow (disk-backed plan + journal, `/newtask` relay, review gates per task, stays under the context budget). `/executing-plans.md` is the simpler "do it all inline in one session" path; only use it for a plan small enough to finish without filling the window.
 
 ## The Rule
 

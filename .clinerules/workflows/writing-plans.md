@@ -49,7 +49,7 @@ This structure informs the task decomposition. Each task should produce self-con
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use /subagent-driven-development.md (recommended) or /executing-plans.md to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use /long-haul-development.md to implement this plan task-by-task (disk-backed plan + journal, `/newtask` relay, review gates). For a plan small enough to finish in one session, /executing-plans.md is the simpler inline path. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** [One sentence describing what this builds]
 
@@ -137,15 +137,15 @@ After saving the plan, offer execution choice:
 
 **"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Two execution options:**
 
-**1. Subtask-Driven (recommended)** - I dispatch a fresh subtask per task, review between tasks, fast iteration
+**1. Long-Haul (recommended)** - disk-backed plan + journal, one task per fresh `/newtask`, review gate before each task is checked off, stays under the context budget. Use this for anything that touches a real codebase.
 
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
+**2. Inline Execution** - run the tasks in this session, batch execution with checkpoints. Only for a plan small enough to finish without filling the window.
 
 **Which approach?"**
 
-**If Subtask-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use /subagent-driven-development.md
-- Fresh subtask per task + two-stage review
+**If Long-Haul chosen:**
+- **REQUIRED SUB-SKILL:** Use /long-haul-development.md
+- It will set up `.cline/plan.md` + `.cline/journal.md` from this plan and run the per-task loop with relays
 
 **If Inline Execution chosen:**
 - **REQUIRED SUB-SKILL:** Use /executing-plans.md

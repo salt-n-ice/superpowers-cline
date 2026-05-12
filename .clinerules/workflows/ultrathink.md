@@ -48,7 +48,7 @@ Now attack your leading candidate as if a sharp reviewer were trying to reject i
 ### Phase 6 — Plan
 - Break the execution into concrete, ordered steps *before touching anything*.
 - For each step, note how you'll verify it.
-- If the task is creative/feature work, this is the point to hand off to `/brainstorming.md`. If it's a bug, to `/systematic-debugging.md`. If it's plan execution, to `/writing-plans.md` → `/executing-plans.md` or `/subagent-driven-development.md`. Ultrathink is orthogonal — it makes the *front* of those workflows rigorous; it doesn't replace them.
+- If the task is creative/feature work, this is the point to hand off to `/brainstorming.md`. If it's a bug, to `/systematic-debugging.md`. If it's plan execution, to `/writing-plans.md` → `/long-haul-development.md` (or `/executing-plans.md` for a small plan). Ultrathink is orthogonal — it makes the *front* of those workflows rigorous; it doesn't replace them.
 
 ## You're Stopping Too Early
 
