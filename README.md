@@ -35,6 +35,7 @@ Workflows (`.clinerules/workflows/`), each invoked as `/<name>.md`:
 - `using-git-worktrees` — isolated workspace before feature work
 - `finishing-a-development-branch` — merge / PR / cleanup decision after work is done
 - `writing-skills` — author or edit a workflow (skill) itself
+- `ultrathink` — **Cline addition (not from upstream).** Forces a deep, written, multi-phase reasoning pass on a hard task before acting, and guards against the model stopping its thinking early. See [below](#ultrathink).
 
 ## Install
 
@@ -62,6 +63,12 @@ Open a fresh Cline task in a project that has this `.clinerules/` and send:
 > Let's make a react todo list
 
 A working install responds by running the `brainstorming` workflow (asking clarifying questions, proposing approaches) **before** writing any code.
+
+## ultrathink
+
+`ultrathink` is not part of upstream superpowers — it's a Cline-specific addition for models that tend to cut their reasoning short. Invoke it with `/ultrathink.md` on a complex, ambiguous, or high-stakes task and the model must work through (and **write out**) six reasoning phases before it acts: restate the problem → surface and verify assumptions → enumerate 2–3 approaches → adversarially attack the leading one → decide on the reasoning that survived → plan the execution. It also carries a "you're stopping too early" red-flags table and a hard completion gate (no editing/answering until the phases are visibly done).
+
+It's orthogonal to the other workflows — use it *alongside* `brainstorming` / `systematic-debugging` / `writing-plans` when the task warrants it; it makes the front of those rigorous, it doesn't replace them. The file is self-contained, so you can also drop just `.clinerules/workflows/ultrathink.md` into a project on its own.
 
 ## Notes & limitations
 

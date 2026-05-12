@@ -48,6 +48,7 @@ The available workflows (skills):
 - `/using-git-worktrees.md` — isolated workspace before feature work
 - `/finishing-a-development-branch.md` — merge / PR / cleanup decision after work is done
 - `/writing-skills.md` — author or edit a workflow (skill) itself
+- `/ultrathink.md` — force a deep, written, multi-phase reasoning pass on a hard task before acting (Cline addition, not from upstream superpowers)
 
 When any workflow says "invoke the X skill", "use the X skill", or "REQUIRED SUB-SKILL: X", that means **run the `/X.md` workflow**. Workflow text sometimes uses Claude Code tool names (`Skill`, `Task`, `TodoWrite`); see `.clinerules/cline-tools.md` for Cline equivalents.
 
