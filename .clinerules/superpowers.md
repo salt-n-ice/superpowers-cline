@@ -39,6 +39,7 @@ The available workflows (skills):
 - `/writing-plans.md` — turn a spec into a step-by-step implementation plan
 - `/executing-plans.md` — execute a written plan with review checkpoints
 - `/subagent-driven-development.md` — execute plan tasks via isolated Cline subtasks
+- `/long-haul-development.md` — execute a large plan when it won't fit in one context window: disk-backed plan + journal, relayed across `/newtask` tasks, no subagents needed (Cline addition)
 - `/dispatching-parallel-agents.md` — split independent work across isolated subtasks
 - `/test-driven-development.md` — RED-GREEN-REFACTOR discipline for any feature or fix
 - `/systematic-debugging.md` — root-cause a bug before proposing fixes
@@ -51,6 +52,8 @@ The available workflows (skills):
 - `/ultrathink.md` — force a deep, written, multi-phase reasoning pass on a hard task before acting (Cline addition, not from upstream superpowers)
 
 When any workflow says "invoke the X skill", "use the X skill", or "REQUIRED SUB-SKILL: X", that means **run the `/X.md` workflow**. Workflow text sometimes uses Claude Code tool names (`Skill`, `Task`, `TodoWrite`); see `.clinerules/cline-tools.md` for Cline equivalents.
+
+**Executing a plan?** If the work plausibly won't fit in one context window (large codebase, many files, long refactor, small-context model), use `/long-haul-development.md` rather than `/executing-plans.md` or `/subagent-driven-development.md` — it externalizes state to disk and relays across `/newtask` tasks so quality holds across the whole job.
 
 ## The Rule
 

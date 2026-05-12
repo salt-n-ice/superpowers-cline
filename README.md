@@ -26,6 +26,7 @@ Workflows (`.clinerules/workflows/`), each invoked as `/<name>.md`:
 - `writing-plans` — turn a spec into a step-by-step implementation plan
 - `executing-plans` — execute a written plan with review checkpoints
 - `subagent-driven-development` — execute plan tasks via isolated Cline subtasks (⚠ sequential)
+- `long-haul-development` — **Cline addition.** Execute a large plan that won't fit in one context window: disk-backed plan + journal, relayed across `/newtask` tasks, no subagents needed. See [below](#long-haul-development).
 - `dispatching-parallel-agents` — split independent work across isolated subtasks (⚠ sequential)
 - `test-driven-development` — RED-GREEN-REFACTOR discipline for any feature or fix
 - `systematic-debugging` — root-cause a bug before proposing fixes
@@ -69,6 +70,12 @@ A working install responds by running the `brainstorming` workflow (asking clari
 `ultrathink` is not part of upstream superpowers — it's a Cline-specific addition for models that tend to cut their reasoning short. Invoke it with `/ultrathink.md` on a complex, ambiguous, or high-stakes task and the model must work through (and **write out**) six reasoning phases before it acts: restate the problem → surface and verify assumptions → enumerate 2–3 approaches → adversarially attack the leading one → decide on the reasoning that survived → plan the execution. It also carries a "you're stopping too early" red-flags table and a hard completion gate (no editing/answering until the phases are visibly done).
 
 It's orthogonal to the other workflows — use it *alongside* `brainstorming` / `systematic-debugging` / `writing-plans` when the task warrants it; it makes the front of those rigorous, it doesn't replace them. The file is self-contained, so you can also drop just `.clinerules/workflows/ultrathink.md` into a project on its own.
+
+## long-haul-development
+
+Also a Cline addition, for the case where the work is bigger than your context window — large codebase, multi-file refactor, or a small-context model that fills up fast. Instead of trying to hold the plan + the codebase + the progress in context (and hitting the wall mid-task), it treats **disk as memory**: a git-ignored `.cline/plan.md` (checkbox task list, source of truth) and `.cline/journal.md` (append-only log of what's done, which files matter and why, gotchas, what's next). The agent does one bounded task, updates both files, checks its context budget, and when it's getting full it writes a tiny handoff and relays to a fresh task via `/newtask` — which reads the two files and continues. Repeat until done. It also enforces surgical reading (grep to the lines, don't slurp whole files), which is the single biggest context saver in a big repo.
+
+It's the no-subagent, context-bounded counterpart to `subagent-driven-development` — same isolation-per-task and review-gate benefits, achieved by relaying fresh tasks instead of dispatching subagents. Invoke `/long-haul-development.md` (it'll bootstrap a plan via `/writing-plans.md` if you don't have one). Requires Cline's `/newtask` to be available.
 
 ## Notes & limitations
 

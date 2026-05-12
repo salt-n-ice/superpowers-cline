@@ -6,6 +6,8 @@ description: Use when executing implementation plans with independent tasks in t
 # Subtask-Driven Development
 
 > **⚠ Cline adaptation:** "Dispatch a subtask" here means **start a Cline subtask with `/newtask`** (or the `new_task` tool), handing it the brief described — not your conversation history. Cline runs subtasks **one at a time**; this workflow is inherently sequential (one task → review → next), so that's fine. Ignore any "parallel-safe" framing — the value is *context isolation* and *automatic review gates*, not concurrency. See `.clinerules/cline-tools.md`.
+>
+> **If the work won't fit in your context window** (large codebase, long refactor, small-context model), use **`/long-haul-development.md`** instead — it externalizes the plan and progress to disk and relays across fresh `/newtask` tasks, which is what actually scales here.
 
 Execute plan by dispatching a fresh Cline subtask per task, with two-stage review after each: spec compliance review first, then code quality review.
 
